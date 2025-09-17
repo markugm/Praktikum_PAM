@@ -4,7 +4,7 @@ Repository ini berisi kumpulan tugas praktikum mata kuliah **Pemrograman Aplikas
 Setiap tugas ditempatkan dalam folder terpisah.
 
 ## Daftar Tugas
-- [Tugas 1](./tugas1) — Login Screen
+- [Tugas 1](./Tugas1_124230020) — Login Screen
 
 ---
 
