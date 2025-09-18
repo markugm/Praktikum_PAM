@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const FlutterLogo(size:40),
+              const FlutterLogo(size: 40),
               const SizedBox(height: 30),
 
               // Input Email
