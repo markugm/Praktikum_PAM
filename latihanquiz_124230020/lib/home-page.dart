@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'vehicle-data.dart'; 
 import 'login-page.dart';
 import 'detail-page.dart';
-import 'main.dart'; // Import warna
+import 'main.dart'; 
 
 class HomePage extends StatelessWidget {
   final String username;
@@ -25,6 +25,7 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
+              // snackbar logout sukses floating
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text("Berhasil logout"),
@@ -43,7 +44,6 @@ class HomePage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header Selamat Datang
           Padding(
             padding: const EdgeInsets.fromLTRB(16.0, 20.0, 16.0, 10.0),
             child: Text(
@@ -80,6 +80,7 @@ class HomePage extends StatelessWidget {
               itemCount: vehicleList.length,
               itemBuilder: (BuildContext context, int index) {
                 final vehicle = vehicleList[index];
+                // inkwell biar bisa di tap
                 return InkWell(
                   onTap: () {
                     Navigator.push(
@@ -90,7 +91,7 @@ class HomePage extends StatelessWidget {
                     );
                   },
                   child: Card(
-                    elevation: 4.0, // Bayangan halus
+                    elevation: 4.0, 
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0), 
                     ),
@@ -132,7 +133,6 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              // Harga dengan warna aksen
                               Text(
                                 vehicle.price,
                                 style: const TextStyle(

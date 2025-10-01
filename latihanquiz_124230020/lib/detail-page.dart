@@ -17,25 +17,21 @@ class DetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // Galeri Gambar dengan tampilan yang lebih lapang
             SizedBox(
-              height: 200, // Tinggi gambar 
+              height: 200,  
               width: double.infinity,
               child: PageView.builder(
                 itemCount: vehicle.imageUrls.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(16.0),
-                    // Mengganti Padding menjadi Container dengan Decoration
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        // Menambahkan border
                         border: Border.all(
-                          color: primaryColor.withOpacity(0.5), // Warna border sedikit transparan
+                          color: primaryColor.withOpacity(0.5), // opacity border ini
                           width: 2.5, // Ketebalan border
                         ),
-                        // Menambahkan shadow tipis (opsional, tapi bagus untuk tampilan modern)
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.1),
@@ -44,7 +40,6 @@ class DetailPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // ClipRRect diletakkan di dalam Container
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20.0),
                         child: Image.network(
@@ -65,7 +60,6 @@ class DetailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  // Nama dan Harga
                   Text(
                     vehicle.name,
                     style: const TextStyle(
@@ -80,7 +74,7 @@ class DetailPage extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: accentColor, // Harga dengan warna aksen
+                      color: accentColor, 
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -131,14 +125,14 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  // Widget pembantu (helper) untuk merapikan baris spesifikasi
+  // Widget helper ngerapihin spesifikasi
   Widget _buildSpecificationRow(IconData icon, String title, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Icon(icon, color: accentColor, size: 20), // Icon dengan warna aksen
+          Icon(icon, color: accentColor, size: 20), 
           const SizedBox(width: 15),
           SizedBox(
             width: 120, 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'login-page.dart';
 
-// Definisikan warna Utama (Primary) dan Aksen (Accent)
+// stating primary and secondary colors #menolakdefault
 const Color primaryColor = Color(0xFF2C3E50); // Deep Indigo / Navy
 const Color accentColor = Color(0xFFE67E22); // Carrot Orange
 
-// Definisikan MATERIAL COLOR SWATCH secara lengkap
+// stating color lagi
 const MaterialColor primaryMaterialColor = MaterialColor(
   0xFF2C3E50,
   <int, Color>{
@@ -33,15 +33,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false, // ilangin ribbon debug
       title: 'Vehicle Menu App',
       theme: ThemeData(
-        // 1. Menggunakan MaterialColor yang lengkap untuk primarySwatch
         primarySwatch: primaryMaterialColor,
         
-        // 2. Memanggil ColorScheme.fromSwatch dengan MaterialColor yang sudah lengkap
         colorScheme: ColorScheme.fromSwatch(primarySwatch: primaryMaterialColor)
-            .copyWith(secondary: accentColor), // Sekarang aman karena primarySwatch lengkap
+            .copyWith(secondary: accentColor), 
         
         visualDensity: VisualDensity.adaptivePlatformDensity,
         

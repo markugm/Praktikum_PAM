@@ -11,16 +11,17 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>(); 
+  //pake textcontroller biar lebih efektif
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   
-  // State untuk mengontrol visibilitas password
+  // ngatur visibilitas password
   bool _isPasswordVisible = false; 
 
   void _attemptLogin() {
     if (_formKey.currentState!.validate()) {
-      // Autentikasi sederhana
       if (_usernameController.text == 'admin' && _passwordController.text == '123') {
+        // snackbar login berhasil floating
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text("Selamat datang ${_usernameController.text}!"),
@@ -35,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
       } else {
+        // snackbar login gagal floating juga
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("Username atau Password salah!"),
@@ -67,7 +69,6 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // Logo/Icon yang menawan
                 Icon(
                   Icons.directions_car_filled, 
                   size: 100, 
@@ -77,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                 const Text(
                   'Vehicle ShowApp',
                   style: TextStyle(
-                    fontSize: 24, // Font lebih besar dan tegas
+                    fontSize: 24, 
                     fontWeight: FontWeight.bold,
                     color: primaryColor,
                   ),
@@ -100,10 +101,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 20),
                 
-                // Input Password dengan Toggle Hide/View
+                // Input Password
                 TextFormField(
                   controller: _passwordController,
-                  obscureText: !_isPasswordVisible, // Kontrol Hide/View
+                  obscureText: !_isPasswordVisible, // opsi Hide/View
                   decoration: InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -129,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 40),
                 
-                // Tombol Login
+                // button Login
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -147,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: 18, 
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
-                        letterSpacing: 1.5, // Sedikit jarak antar huruf
+                        letterSpacing: 1.5, 
                       ),
                     ),
                   ),
