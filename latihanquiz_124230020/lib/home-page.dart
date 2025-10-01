@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'vehicle-data.dart'; 
 import 'login-page.dart';
 import 'detail-page.dart';
+import 'main.dart'; 
 
 class HomePage extends StatelessWidget {
   final String username;
   
-  // Menerima username dari LoginPage
   const HomePage({super.key, required this.username});
 
-  // Fungsi untuk logout dan kembali ke LoginPage
   void _logout(BuildContext context) {
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) => const LoginPage()),
-      (Route<dynamic> route) => false, // Hapus semua route sebelumnya
+      (Route<dynamic> route) => false, 
     );
   }
 
@@ -21,10 +20,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Daftar Kendaraan'),
-        backgroundColor: Colors.teal,
+        title: const Text('Vehicle Show App'),
         actions: [
-          // Tombol Logout
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () => _logout(context),
@@ -35,31 +32,32 @@ class HomePage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Selamat Datang {username}
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
             child: Text(
               'Selamat datang, $username!',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.teal),
+              style: const TextStyle(
+                fontSize: 22, 
+                fontWeight: FontWeight.w800, 
+                color: maroon, 
+              ),
             ),
           ),
-          const Divider(height: 1, color: Colors.grey),
-          // List Kendaraan
+          
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.all(12.0),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // 2 kolom untuk tampilan yang lebih menarik
-                crossAxisSpacing: 12.0,
-                mainAxisSpacing: 12.0,
-                childAspectRatio: 0.75, // Ratio untuk tampilan card yang lebih proporsional
+                crossAxisCount: 2, 
+                crossAxisSpacing: 16.0, 
+                mainAxisSpacing: 16.0,
+                childAspectRatio: 0.70, 
               ),
               itemCount: vehicleList.length,
               itemBuilder: (BuildContext context, int index) {
                 final vehicle = vehicleList[index];
                 return InkWell(
                   onTap: () {
-                    // Navigasi ke DetailPage saat card diklik
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -68,37 +66,36 @@ class HomePage extends StatelessWidget {
                     );
                   },
                   child: Card(
-                    elevation: 4.0,
+                    elevation: 8.0, 
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(15.0), 
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        // Gambar dengan layout yang rapi
                         Expanded(
                           child: ClipRRect(
-                            borderRadius: const BorderRadius.vertical(top: Radius.circular(10.0)),
+                            borderRadius: const BorderRadius.vertical(top: Radius.circular(15.0)),
                             child: Image.network(
-                              vehicle.imageUrls.first, // Ambil gambar pertama dari list
+                              vehicle.imageUrls.first, 
                               fit: BoxFit.cover,
                               width: double.infinity,
-                              // ErrorBuilder untuk gambar yang tidak muncul (sesuai NOTE)
                               errorBuilder: (context, error, stackTrace) => 
-                                const Center(child: Icon(Icons.image_not_supported, color: Colors.grey)),
+                                const Center(child: Icon(Icons.broken_image, size: 50, color: Colors.grey)),
                             ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(12.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
                                 vehicle.name,
                                 style: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 18, 
                                   fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -107,7 +104,7 @@ class HomePage extends StatelessWidget {
                               Text(
                                 '${vehicle.type} | ${vehicle.fuelType}',
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 13,
                                   color: Colors.grey[600],
                                 ),
                               ),
@@ -115,9 +112,9 @@ class HomePage extends StatelessWidget {
                               Text(
                                 vehicle.price,
                                 style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.teal,
+                                  fontSize: 17, 
+                                  fontWeight: FontWeight.w800,
+                                  color: maroon, 
                                 ),
                               ),
                             ],

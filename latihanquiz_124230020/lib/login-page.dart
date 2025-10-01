@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home-page.dart';
+import 'main.dart'; 
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,23 +10,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // Key untuk form validation
   final _formKey = GlobalKey<FormState>(); 
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  // Autentikasi sederhana: username 'admin' dan password '123'
   void _attemptLogin() {
     if (_formKey.currentState!.validate()) {
       if (_usernameController.text == 'admin' && _passwordController.text == '123') {
-        // Navigasi ke HomePage dan kirim username
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => HomePage(username: _usernameController.text),
           ),
         );
       } else {
-        // Tampilkan pesan error jika autentikasi gagal
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Username atau Password salah!')),
         );
@@ -44,8 +41,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
-        backgroundColor: Colors.teal,
+        title: const Text('Akses Masuk'),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -55,18 +51,32 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Icon(
-                  Icons.directions_car,
-                  size: 80,
-                  color: Colors.teal,
+                Icon(
+                  Icons.directions_car_filled, 
+                  size: 100, 
+                  color: maroon, 
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Vehicle Show App',
+                  style: TextStyle(
+                    fontSize: 18, 
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
                 ),
                 const SizedBox(height: 40),
+                
                 TextFormField(
                   controller: _usernameController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Username',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.person),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    focusedBorder: OutlineInputBorder( // Border saat fokus berwarna Maroon
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: maroon, width: 2.0),
+                    ),
+                    prefixIcon: const Icon(Icons.person, color: maroon),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -79,10 +89,14 @@ class _LoginPageState extends State<LoginPage> {
                 TextFormField(
                   controller: _passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Password',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                     focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: maroon, width: 2.0),
+                    ),
+                    prefixIcon: const Icon(Icons.lock, color: maroon),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -97,8 +111,11 @@ class _LoginPageState extends State<LoginPage> {
                   child: ElevatedButton(
                     onPressed: _attemptLogin,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal,
+                      backgroundColor: maroon,
                       padding: const EdgeInsets.symmetric(vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     child: const Text('Login', style: TextStyle(color: Colors.white)),
