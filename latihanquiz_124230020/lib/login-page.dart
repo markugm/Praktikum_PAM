@@ -13,10 +13,22 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>(); 
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  
+  // State untuk mengontrol visibilitas password
+  bool _isPasswordVisible = false; 
 
   void _attemptLogin() {
     if (_formKey.currentState!.validate()) {
+      // Autentikasi sederhana
       if (_usernameController.text == 'admin' && _passwordController.text == '123') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Selamat datang ${_usernameController.text}!"),
+            backgroundColor: Colors.green,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => HomePage(username: _usernameController.text),
@@ -24,7 +36,11 @@ class _LoginPageState extends State<LoginPage> {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Username atau Password salah!')),
+          const SnackBar(
+            content: Text("Username atau Password salah!"),
+            backgroundColor: Colors.redAccent,
+            behavior: SnackBarBehavior.floating,
+          ),
         );
       }
     }
@@ -41,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Akses Masuk'),
+        title: const Text('Login Page'),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -51,74 +67,89 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                // Logo/Icon yang menawan
                 Icon(
                   Icons.directions_car_filled, 
                   size: 100, 
-                  color: maroon, 
+                  color: primaryColor, 
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'Vehicle Show App',
+                  'Vehicle ShowApp',
                   style: TextStyle(
-                    fontSize: 18, 
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
+                    fontSize: 24, // Font lebih besar dan tegas
+                    fontWeight: FontWeight.bold,
+                    color: primaryColor,
                   ),
                 ),
                 const SizedBox(height: 40),
                 
+                // Input Username
                 TextFormField(
                   controller: _usernameController,
                   decoration: InputDecoration(
                     labelText: 'Username',
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                    focusedBorder: OutlineInputBorder( // Border saat fokus berwarna Maroon
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: maroon, width: 2.0),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: accentColor, width: 2.0), // Aksen saat fokus
                     ),
-                    prefixIcon: const Icon(Icons.person, color: maroon),
+                    prefixIcon: const Icon(Icons.person, color: primaryColor),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Masukkan username Anda';
-                    }
-                    return null;
-                  },
+                  validator: (value) => value!.isEmpty ? 'Masukkan username Anda' : null,
                 ),
                 const SizedBox(height: 20),
+                
+                // Input Password dengan Toggle Hide/View
                 TextFormField(
                   controller: _passwordController,
-                  obscureText: true,
+                  obscureText: !_isPasswordVisible, // Kontrol Hide/View
                   decoration: InputDecoration(
                     labelText: 'Password',
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: maroon, width: 2.0),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: accentColor, width: 2.0),
                     ),
-                    prefixIcon: const Icon(Icons.lock, color: maroon),
+                    prefixIcon: const Icon(Icons.lock, color: primaryColor),
+                    // Tombol Toggle Password
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });
+                      },
+                    ),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Masukkan password Anda';
-                    }
-                    return null;
-                  },
+                  validator: (value) => value!.isEmpty ? 'Masukkan password Anda' : null,
                 ),
                 const SizedBox(height: 40),
+                
+                // Tombol Login
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: _attemptLogin,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: maroon,
-                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      backgroundColor: primaryColor,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    child: const Text('Login', style: TextStyle(color: Colors.white)),
+                    child: const Text(
+                      'MASUK', 
+                      style: TextStyle(
+                        fontSize: 18, 
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        letterSpacing: 1.5, // Sedikit jarak antar huruf
+                      ),
+                    ),
                   ),
                 ),
               ],

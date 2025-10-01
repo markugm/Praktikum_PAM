@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'vehicle-data.dart'; 
 import 'login-page.dart';
 import 'detail-page.dart';
-import 'main.dart'; 
+import 'main.dart'; // Import warna
 
 class HomePage extends StatelessWidget {
   final String username;
@@ -20,38 +20,62 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Vehicle Show App'),
+        title: const Text('Vehicle ShowApp'),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
-            onPressed: () => _logout(context),
-            tooltip: 'Logout',
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Berhasil logout"),
+                  backgroundColor: Colors.green,
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
+            }
           ),
         ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Header Selamat Datang
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+            padding: const EdgeInsets.fromLTRB(16.0, 20.0, 16.0, 10.0),
             child: Text(
-              'Selamat datang, $username!',
+              'Selamat datang, $username.',
               style: const TextStyle(
-                fontSize: 22, 
-                fontWeight: FontWeight.w800, 
-                color: maroon, 
+                fontSize: 20, 
+                fontWeight: FontWeight.w600, 
+                color: primaryColor, 
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'Jelajahi pilihan terbaik kami:',
+              style: TextStyle(
+                fontSize: 14, 
+                color: Colors.grey[600],
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
           
+          // Grid View
           Expanded(
             child: GridView.builder(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(16.0),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, 
                 crossAxisSpacing: 16.0, 
                 mainAxisSpacing: 16.0,
-                childAspectRatio: 0.70, 
+                childAspectRatio: 0.72, 
               ),
               itemCount: vehicleList.length,
               itemBuilder: (BuildContext context, int index) {
@@ -66,7 +90,7 @@ class HomePage extends StatelessWidget {
                     );
                   },
                   child: Card(
-                    elevation: 8.0, 
+                    elevation: 4.0, // Bayangan halus
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0), 
                     ),
@@ -93,28 +117,28 @@ class HomePage extends StatelessWidget {
                               Text(
                                 vehicle.name,
                                 style: const TextStyle(
-                                  fontSize: 18, 
+                                  fontSize: 16, 
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black,
                                 ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                '${vehicle.type} | ${vehicle.fuelType}',
+                                '${vehicle.type} / ${vehicle.fuelType}',
                                 style: TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.grey[600],
+                                  fontSize: 12,
+                                  color: Colors.grey[500],
                                 ),
                               ),
                               const SizedBox(height: 8),
+                              // Harga dengan warna aksen
                               Text(
                                 vehicle.price,
                                 style: const TextStyle(
-                                  fontSize: 17, 
+                                  fontSize: 16, 
                                   fontWeight: FontWeight.w800,
-                                  color: maroon, 
+                                  color: accentColor, 
                                 ),
                               ),
                             ],

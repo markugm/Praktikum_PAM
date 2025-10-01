@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'login-page.dart';
 
-//state warna maroon kustom
-const MaterialColor maroon = MaterialColor(
-  0xFF800000, 
+// Definisikan warna Utama (Primary) dan Aksen (Accent)
+const Color primaryColor = Color(0xFF2C3E50); // Deep Indigo / Navy
+const Color accentColor = Color(0xFFE67E22); // Carrot Orange
+
+// Definisikan MATERIAL COLOR SWATCH secara lengkap
+const MaterialColor primaryMaterialColor = MaterialColor(
+  0xFF2C3E50,
   <int, Color>{
-    50: Color(0xFFFDE5E5),
-    100: Color(0xFFF8BFBF),
-    200: Color(0xFFF29696),
-    300: Color(0xFFEC7070),
-    400: Color(0xFFE85353),
-    500: Color(0xFF800000), // Warna utama
-    600: Color(0xFF730000),
-    700: Color(0xFF630000),
-    800: Color(0xFF540000),
-    900: Color(0xFF3B0000),
+    50: Color(0xFFE5E7EB),
+    100: Color(0xFFBCC4C9),
+    200: Color(0xFF919CA4),
+    300: Color(0xFF67757F),
+    400: Color(0xFF495B6B),
+    500: primaryColor, // Warna utama
+    600: Color(0xFF27384A),
+    700: Color(0xFF22303F),
+    800: Color(0xFF1D2836),
+    900: Color(0xFF141D29),
   },
 );
+
 
 void main() {
   runApp(const MyApp());
@@ -31,17 +36,20 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Vehicle Menu App',
       theme: ThemeData(
-        primarySwatch: maroon, 
-        primaryColor: maroon,
+        // 1. Menggunakan MaterialColor yang lengkap untuk primarySwatch
+        primarySwatch: primaryMaterialColor,
+        
+        // 2. Memanggil ColorScheme.fromSwatch dengan MaterialColor yang sudah lengkap
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: primaryMaterialColor)
+            .copyWith(secondary: accentColor), // Sekarang aman karena primarySwatch lengkap
+        
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        textTheme: const TextTheme(
-          titleLarge: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-          bodyMedium: TextStyle(fontFamily: 'Roboto'),
-        ),
+        
         appBarTheme: const AppBarTheme(
-          backgroundColor: maroon, 
+          color: primaryColor,
           foregroundColor: Colors.white,
-          titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          elevation: 0, 
         ),
       ),
       home: const LoginPage(),
